@@ -415,7 +415,7 @@ The API requires the following parameters:
 You can run the following curl command:
 
 ```bash
-curl -X GET -H "Accept: application/json" "${CARGO_TRACKER_URL}rest/graph-traversal/shortest-path?origin=CNHKG&destination=USNYC"
+curl --verbose -X GET -H "Accept: application/json" "${CARGO_TRACKER_URL}rest/graph-traversal/shortest-path?origin=CNHKG&destination=USNYC" | jq .
 ```
 
 The `/handling/reports` REST API allows you to send an asynchronous message with the information to the handling event registration system for proper registration.
