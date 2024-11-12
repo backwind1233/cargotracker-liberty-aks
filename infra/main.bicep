@@ -69,7 +69,7 @@ resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   tags: tags
 }
 
-module umiApps 'modules/shared/userAssignedIdentity.bicep' = {
+module umiApps './shared/userAssignedIdentity.bicep' = {
   name: 'umi-apps'
   scope: rg
   params: {
