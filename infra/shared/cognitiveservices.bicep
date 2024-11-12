@@ -38,7 +38,7 @@ param networkAcls object = empty(allowedIpRules) ? {
 }
 
 resource account 'Microsoft.CognitiveServices/accounts@2023-05-01' = {
-  name: name
+  name: accountName
   location: location
   tags: tags
   kind: kind
