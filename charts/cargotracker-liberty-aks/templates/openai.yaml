@@ -8,3 +8,4 @@ stringData:
   azureOpenAIKey: "{{ .Values.azureOpenAIKey }}"
   azureOpenAIEndpoint: "{{ .Values.azureOpenAIEndpoint }}"
   azureOpenAIDeploymentName: "{{ .Values.azureOpenAIDeploymentName }}"
+  azureOpenAIClientId: "{{ .Values.azureOpenAIClientId }}"

@@ -26,6 +26,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.report.sourceEncoding>UTF-8</project.report.sourceEncoding>
         <langchain4j.version>0.34.0</langchain4j.version>
+        <azure-identity.version>1.13.2</azure-identity.version>
 
         <!-- Test Utilities -->
         <arquilian.version>1.8.0.Final</arquilian.version>
@@ -86,6 +87,11 @@
             <groupId>dev.langchain4j</groupId>
             <artifactId>langchain4j-azure-open-ai</artifactId>
             <version>${langchain4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.azure</groupId>
+            <artifactId>azure-identity</artifactId>
+            <version>${azure-identity.version}</version>
         </dependency>
 
         <dependency>
@@ -576,6 +582,10 @@
                 <param.db.password>${env.DB_PASSWORD}</param.db.password>
                 <param.namespace>${env.NAMESPACE}</param.namespace>
                 <param.replicas>3</param.replicas>
+                <param.ai.azure.openai.key>${env.AZURE_OPENAI_KEY}</param.ai.azure.openai.key>
+                <param.ai.azure.openai.endpoint>${env.AZURE_OPENAI_ENDPOINT}</param.ai.azure.openai.endpoint>
+                <param.ai.azure.openai.deploymentname>${env.AZURE_OPENAI_DEPLOYMENT_NAME}</param.ai.azure.openai.deploymentname>
+                <param.ai.azure.openai.deploymentname>${env.AZURE_OPENAI_CLIENT_ID}</param.ai.azure.openai.deploymentname>
                 <param.app.insight.connection.string>${env.APPLICATIONINSIGHTS_CONNECTION_STRING}</param.app.insight.connection.string>
             </properties>
             <dependencies>

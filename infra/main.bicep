@@ -69,6 +69,15 @@ resource rg 'Microsoft.Resources/resourceGroups@2022-09-01' = {
   tags: tags
 }
 
+module umiApps 'modules/shared/userAssignedIdentity.bicep' = {
+  name: 'umi-apps'
+  scope: rg
+  params: {
+    name: 'umi-apps-${environmentName}-${take(resourceToken, 6)}'
+  }
+}
+
+
 module openLibertyOnAks './azure.liberty.aks/mainTemplate.bicep' = {
   name: 'openliberty-on-aks'
   params: {
@@ -103,8 +112,10 @@ module cognitiveservices './shared/cognitiveservices.bicep' = {
   scope: rg
   params: {
     location: location
-    name: 'openai-${suffix}'
+    accountName: 'openai-${suffix}'
     customSubDomainName: 'openai-${suffix}'
+    appPrincipalId: umiApps.outputs.principalId
+    tags: tags
     deployments: [
       {
         name: 'openai-deployment-${suffix}'
@@ -140,7 +151,7 @@ module flexibleserver './shared/flexibleserver.bicep' = {
     }
 }
 
-output AZURE_OPENAI_KEY string =cognitiveservices.outputs.key
+output AZURE_OPENAI_CLIENT_ID string = umiApps.outputs.principalId
 output AZURE_OPENAI_ENDPOINT string =cognitiveservices.outputs.endpoint
 output AZURE_OPENAI_MODEL_NAME string = openAIModelName
 output AZURE_AKS_CLUSTER_NAME string = openLibertyOnAks.outputs.clusterName

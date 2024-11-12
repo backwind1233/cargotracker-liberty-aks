@@ -24,6 +24,7 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
+import org.apache.commons.lang3.StringUtils;
 import org.eclipse.pathfinder.internal.GraphDao;
 
 @Stateless
@@ -63,7 +64,9 @@ public class GraphTraversalService {
                                               String deadline) {
         String endpoint = System.getenv("AZURE_OPENAI_ENDPOINT");
         String key = System.getenv("AZURE_OPENAI_KEY");
-        if ((null != endpoint && !endpoint.isEmpty()) && (null != key && !key.isEmpty())) {
+        String clientid = System.getenv("AZURE_OPENAI_CLIENT_ID");
+        if (StringUtils.isNotBlank(endpoint)
+            && (StringUtils.isNotBlank(key) || StringUtils.isNotBlank(clientid))) {
             String shortestPath = getShortestPathWithTimeout(originUnLocode, destinationUnLocode);
             if (isValidJsonUsingJsonP(shortestPath) && !shortestPath.equals("[]")) {
                 Jsonb jsonb = JsonbBuilder.create();
