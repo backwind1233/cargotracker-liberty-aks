@@ -13,7 +13,8 @@ function Test-CommandExists {
     }
     catch {
         Write-Host "❌ $Command is not installed" -ForegroundColor Red
-        Write-Host "To install $Command: $InstallMessage" -ForegroundColor Yellow
+        Write-Host "To install ${Command}:" -ForegroundColor Yellow
+        Write-Host $InstallMessage -ForegroundColor Yellow
         return $false
     }
 }
@@ -25,7 +26,9 @@ $hasError = $false
 $mavenInstallMsg = @"
 1. Download Maven from https://maven.apache.org/download.cgi
 2. Extract to a directory (e.g., C:\Program Files\Apache\maven)
-3. Add to Path: [Environment]::SetEnvironmentVariable('Path', `$env:Path + ';C:\Program Files\Apache\maven\bin', 'Machine')
+3. Add to Path environment variable:
+   - Open System Properties > Environment Variables
+   - Add Maven bin directory to Path (e.g., C:\Program Files\Apache\maven\bin)
 "@
 if (-not (Test-CommandExists "mvn" $mavenInstallMsg)) { $hasError = $true }
 
