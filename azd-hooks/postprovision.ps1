@@ -35,12 +35,12 @@ az postgres flexible-server restart -g $env:RESOURCE_GROUP_NAME --name $env:DB_R
 
 function Run-MavenCommand {
     param([string]$property)
-    $result = mvn help:evaluate -Dexpression=$property -q -DforceStdout
+    $result = mvn help:evaluate -D"expression=$property" -q -DforceStdout
     return $result.Trim()
 }
 
-$IMAGE_NAME = Run-MavenCommand '${project.artifactId}'
-$IMAGE_VERSION = Run-MavenCommand '${project.version}'
+$IMAGE_NAME = Run-MavenCommand 'project.artifactId'
+$IMAGE_VERSION = Run-MavenCommand 'project.version'
 
 ##########################################################
 # Create the custom-values.yaml file
