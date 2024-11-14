@@ -89,7 +89,7 @@ git clone https://github.com/WASdev/azure.liberty.aks (Join-Path $DIR "azure.lib
 # Checkout specific branch and get version
 Set-Location (Join-Path $DIR "azure.liberty.aks")
 git checkout $env:LIBERTY_AKS_REPO_REF
-$VERSION = 1.0.22
+$VERSION = "1.0.22"
 
 # Download POM file
 Set-Location $DIR

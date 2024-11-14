@@ -34,8 +34,8 @@ az postgres flexible-server parameter set --name max_prepared_transactions --val
 az postgres flexible-server restart -g $env:RESOURCE_GROUP_NAME --name $env:DB_RESOURCE_NAME
 
 function Run-MavenCommand {
-    param([string]$arg)
-    $result = mvn -q -Dexec.executable=echo -Dexec.args="$arg" --non-recursive exec:exec 2>$null
+    param([string]$property)
+    $result = mvn help:evaluate -Dexpression=$property -q -DforceStdout
     return $result.Trim()
 }
 
