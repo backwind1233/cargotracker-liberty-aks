@@ -81,21 +81,18 @@ git clone https://github.com/WASdev/azure.liberty.aks (Join-Path $DIR "azure.lib
 # Checkout specific branch and get version
 Set-Location (Join-Path $DIR "azure.liberty.aks")
 git checkout $env:LIBERTY_AKS_REPO_REF
-$VERSION = Select-String -Path "pom.xml" -Pattern "<version>" | 
-           Select-Object -Skip 1 -First 1 | 
-           ForEach-Object { $_.Line.Trim() -replace "<version>|</version>","" }
 
 # Download POM file
 Set-Location $DIR
-$pomUrl = "https://github.com/azure-javaee/azure-javaee-iaas/releases/download/azure-javaee-iaas-parent-${VERSION}/azure-javaee-iaas-parent-${VERSION}.pom"
-$pomFile = Join-Path $DIR "azure-javaee-iaas-parent-${VERSION}.pom"
+$pomUrl = "https://github.com/azure-javaee/azure-javaee-iaas/releases/download/azure-javaee-iaas-parent-1.0.22/azure-javaee-iaas-parent-1.0.22.pom"
+$pomFile = Join-Path $DIR "azure-javaee-iaas-parent-1.0.22.pom"
 Invoke-WebRequest -Uri $pomUrl -OutFile $pomFile
 
 # Install Maven file
 mvn install:install-file "-Dfile=$pomFile" `
                         "-DgroupId=com.microsoft.azure.iaas" `
                         "-DartifactId=azure-javaee-iaas-parent" `
-                        "-Dversion=$VERSION" `
+                        "-Dversion=1.0.22" `
                         "-Dpackaging=pom"
 
 # Build project
