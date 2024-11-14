@@ -26,6 +26,9 @@ check_command "git" "sudo apt-get install git # For Ubuntu/Debian\nbrew install 
 # Check kubectl
 check_command "kubectl" "Visit https://kubernetes.io/docs/tasks/tools/install-kubectl/ for installation instructions"
 
+# Check helm
+check_command "helm" "Visit https://helm.sh/docs/intro/install/ for installation instructions"
+
 # Exit with error if any tool is missing
 if [ $error -eq 1 ]; then
     echo -e "\n⚠️  Please install the missing tools before proceeding."

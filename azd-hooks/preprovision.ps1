@@ -53,6 +53,14 @@ $kubectlInstallMsg = @"
 "@
 if (-not (Test-CommandExists "kubectl" $kubectlInstallMsg)) { $hasError = $true }
 
+# Check Helm
+$helmInstallMsg = @"
+1. Install using winget: winget install OpenJS.Helm
+2. Or using Chocolatey: choco install kubernetes-helm
+3. Or manually download from https://helm.sh/docs/intro/install/
+"@
+if (-not (Test-CommandExists "helm" $helmInstallMsg)) { $hasError = $true }
+
 # Final status check
 Write-Host "`n=== Final Status ===" -ForegroundColor Cyan
 if ($hasError) {
