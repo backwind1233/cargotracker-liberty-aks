@@ -9,25 +9,45 @@ hooks:
             shell: sh
             continueOnError: false
             interactive: true
-            run: azd-hooks/preprovision.sh
+            run: ./infra/azd-hooks/preprovision.sh
+        windows:
+            shell: pwsh
+            continueOnError: false
+            interactive: true
+            run: ./infra/azd-hooks/preprovision.ps1
     postprovision:
         posix:
             shell: sh
             continueOnError: false
             interactive: true
-            run: azd-hooks/postprovision.sh
+            run: ./infra/azd-hooks/postprovision.sh
+        windows:
+            shell: pwsh
+            continueOnError: false
+            interactive: true
+            run: ./infra/azd-hooks/postprovision.ps1
     predeploy: # This hook is executed before the deployment of the application to create the custom-values.yaml file
         posix:
             shell: sh
             continueOnError: false
             interactive: true
-            run: azd-hooks/predeploy.sh
+            run: ./infra/azd-hooks/predeploy.sh
+        windows:
+            shell: pwsh
+            continueOnError: false
+            interactive: true
+            run: ./infra/azd-hooks/predeploy.ps1
     postdeploy: # This hook is executed after the deployment of the application to create the custom-values.yaml file
         posix:
             shell: sh
             continueOnError: false
             interactive: true
-            run: azd-hooks/postdeploy.sh
+            run: ./infra/azd-hooks/postdeploy.sh
+        windows:
+            shell: pwsh
+            continueOnError: false
+            interactive: true
+            run: ./infra/azd-hooks/postdeploy..ps1
 
 services:
     demo:
