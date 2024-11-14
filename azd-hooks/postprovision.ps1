@@ -10,7 +10,7 @@ $env:ACR_SERVER = (az acr show -n $env:ACR_NAME -g $env:RESOURCE_GROUP_NAME --qu
 $env:AKS_NAME = (az aks list -g $env:RESOURCE_GROUP_NAME --query "[0].name" -o tsv)
 
 # Enable Helm support
-az config set alpha.aks.helm on
+azd config set alpha.aks.helm on
 
 # Check if the repo exists before removing
 $helmRepos = helm repo list
