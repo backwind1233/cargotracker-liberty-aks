@@ -46,7 +46,7 @@ git clone https://github.com/WASdev/azure.liberty.aks ${DIR}/azure.liberty.aks
 
 cd ${DIR}/azure.liberty.aks
 git checkout ${LIBERTY_AKS_REPO_REF}
-export VERSION=$(grep -A4 "<parent>" pom.xml | grep "<version>" | awk -F'[<>]' '{print $3}')
+export VERSION=1.0.22
 
 cd ${DIR}
 curl -L -o ${DIR}/azure-javaee-iaas-parent-${VERSION}.pom  \
