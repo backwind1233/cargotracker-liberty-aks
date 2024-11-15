@@ -77,6 +77,10 @@ az extension add --upgrade -n application-insights
 # Source environment variables (PowerShell equivalent)
 . .\.scripts\setup-env-variables-template.ps1
 
+if (Test-Path "tmp-build") {
+    Remove-Item -Path "tmp-build" -Recurse -Force
+}
+
 # Create temporary directory
 $DIR = Join-Path (Get-Location) "tmp-build"
 New-Item -ItemType Directory -Path $DIR -Force
@@ -110,11 +114,11 @@ mvn clean package -DskipTests
 
 # Copy bicep files
 $targetDir = Join-Path $DIR "..\infra\azure.liberty.aks"
+if (Test-Path $targetDir) {
+    Remove-Item -Path $targetDir -Recurse -Force
+}
 New-Item -ItemType Directory -Path $targetDir -Force
 Copy-Item -Path (Join-Path $DIR "azure.liberty.aks\target\bicep\*") -Destination $targetDir -Recurse
 
 # Wait 5 seconds
 Start-Sleep -Seconds 5
-
-# Cleanup
-Remove-Item -Path $DIR -Recurse -Force 
