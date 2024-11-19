@@ -8,14 +8,8 @@ $env:ACR_PASSWORD = az acr credential show -n $env:ACR_NAME -g $env:RESOURCE_GRO
 # Build and push docker image to ACR
 Write-Host "Get image name and version......"
 
-function Get-MavenProperty {
-    param([string]$property)
-    $result = mvn -q -Dexec.executable=echo -Dexec.args=$property --non-recursive exec:exec 2>$null
-    return $result.Trim()
-}
-
-$IMAGE_NAME = Get-MavenProperty '${project.artifactId}'
-$IMAGE_VERSION = Get-MavenProperty '${project.version}'
+$IMAGE_NAME = mvn help:evaluate "-Dexpression=project.artifactId" -q -DforceStdout
+$IMAGE_VERSION = mvn help:evaluate "-Dexpression=project.version" -q -DforceStdout
 
 Write-Host "Docker build and push to ACR Server $env:ACR_SERVER with image name $IMAGE_NAME and version $IMAGE_VERSION"
 
@@ -27,4 +21,4 @@ docker login -u $env:ACR_USER_NAME -p $env:ACR_PASSWORD $env:ACR_SERVER
 $env:DOCKER_BUILDKIT = 1
 docker buildx create --use
 docker buildx build --platform linux/amd64 -t "$env:ACR_SERVER/${IMAGE_NAME}:${IMAGE_VERSION}" --pull --file=Dockerfile . --load
-docker push "$env:ACR_SERVER/${IMAGE_NAME}:${IMAGE_VERSION}" 
+docker push "$env:ACR_SERVER/${IMAGE_NAME}:${IMAGE_VERSION}"
