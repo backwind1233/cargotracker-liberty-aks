@@ -47,7 +47,7 @@ hooks:
             shell: pwsh
             continueOnError: false
             interactive: true
-            run: azd-hooks/postdeploy..ps1
+            run: azd-hooks/postdeploy.ps1
 
 services:
     demo:
